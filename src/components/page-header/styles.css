@@ -33,3 +33,23 @@
   line-height: 4.2rem;
   color: var(--color-title-in-primary);
 }
+@media (min-width: 700px){
+  .page-header{ 
+    height: 34rem;
+  }
+  .page-header .top-bar-container {
+    max-width: 110rem;
+  }
+  .page-header .header-content {
+    flex: 1;
+    max-width: 74rem;
+    margin: 0 auto;
+    padding-bottom: 4.8rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .page-header .header-content strong {
+    max-width: 34rem;
+  }
+}
