@@ -1,6 +1,6 @@
-import { Landing } from './pages/landing'
+import { AppRoutes } from './routes'
 export function App() {
   return (
-    <Landing/>
+    <AppRoutes />
   )
 }
