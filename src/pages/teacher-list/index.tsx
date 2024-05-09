@@ -1,6 +1,8 @@
 
 import { PageHeader } from '../../components/page-header';
+import { TeacherItem } from '../../components/teacher-item';
 import './styles.css';
+
 
 export function TeacherList(){
   return (
@@ -21,6 +23,12 @@ export function TeacherList(){
           </div>
         </form>
       </PageHeader>
+      <main>
+        <TeacherItem />
+        <TeacherItem />
+        <TeacherItem />
+        <TeacherItem />
+      </main>
     </div>
   )
 }
