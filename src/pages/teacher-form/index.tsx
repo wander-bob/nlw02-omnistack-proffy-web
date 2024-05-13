@@ -4,7 +4,7 @@ import { PageHeader } from '../../components/page-header';
 import { Textarea } from '../../components/textarea';
 import { Select } from '../../components/select';
 
-import warningIcon from '../../assets/images/icons/warning.svg';
+import warningIcon  from '../../assets/images/icons/warning.svg';
 import './styles.css';
 
 export function TeacherForm(){
