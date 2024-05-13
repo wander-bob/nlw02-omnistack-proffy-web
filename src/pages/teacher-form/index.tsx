@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
 import { Input } from '../../components/input';
 import { PageHeader } from '../../components/page-header';
@@ -6,8 +7,11 @@ import { Select } from '../../components/select';
 
 import warningIcon  from '../../assets/images/icons/warning.svg';
 import './styles.css';
+import { api } from '../../services/api';
+
 
 export function TeacherForm(){
+  const navigate = useNavigate()
   const [name,setName] = useState('');
   const [avatar,setAvatar] = useState('');
   const [whatsapp,setWhatsApp] = useState('');
@@ -25,20 +29,30 @@ export function TeacherForm(){
   }
   function handleCreateClass(e: FormEvent){
     e.preventDefault();
-    console.log({
+    api.post('/classes', {
       name, 
       avatar,
+      whatsapp,
       bio,
       subject,
-      cost
+      cost: Number(cost),
+      schedule: scheduleItems
+    }).then(()=>{
+      alert('Cadastro realizado com sucesso!')
+      navigate('/')
+    }).catch((error)=>{
+      console.log(error)
+      alert('Ocorreu um erro ao cadastrar...')
     })
   }
   function setScheduleItemValue(position: number, field: string, value: string){
-    const newScheduleItems = scheduleItems.map((scheduleItem, index)=>{
+    const updatedScheduleItems = scheduleItems.map((scheduleItem, index)=> {
       if(index === position){
         return {...scheduleItem, [field]: value}
       }
+      return scheduleItem;
     });
+    setScheduleItems(updatedScheduleItems);
   }
   return (
     <div id='page-teacher-form' className='container'>
@@ -113,7 +127,8 @@ export function TeacherForm(){
                   <div key={scheduleItem.week_day} className="schedule-item">
                     <Select 
                       name='weekday' 
-                      label='Dia da semana' 
+                      label='Dia da semana'
+                      value={scheduleItem.week_day}
                       onChange={e => setScheduleItemValue(index, 'week_day', e.target.value)}
                       options={[
                         {value: '0', label: 'Domingo'},
@@ -128,12 +143,16 @@ export function TeacherForm(){
                     <Input 
                       name='from' 
                       label='Das' 
-                      type='time' 
-                    />
+                      type='time'
+                      value={scheduleItem.from}
+                      onChange={e => setScheduleItemValue(index, 'from', e.target.value)}
+                      />
                     <Input 
                       name='to'
                       label='Até'
                       type='time' 
+                      value={scheduleItem.to}
+                      onChange={e => setScheduleItemValue(index, 'to', e.target.value)}
                     />
                   </div>
                 );
